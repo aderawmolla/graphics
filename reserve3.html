@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Embroidery Combined Design</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            background-color: #fefafb;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="embroideryCanvas" width="600" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('embroideryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Define colors used in the design
+        const colors = {
+            color1: '#922217', // Red
+            color2: '#c47240', // Orange
+            color3: '#000002'  // Black
+        };
+
+        // Function to draw a diamond shape
+        function drawDiamond(x, y, size, fillColor, strokeColor) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - size / 2);
+            ctx.lineTo(x + size / 2, y);
+            ctx.lineTo(x, y + size / 2);
+            ctx.lineTo(x - size / 2, y);
+            ctx.closePath();
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.strokeStyle = strokeColor;
+            ctx.stroke();
+        }
+
+        // Function to draw the complex center pattern
+        function drawComplexCenter(x, y, size) {
+            drawDiamond(x, y, size, colors.color2, colors.color3);
+            drawDiamond(x, y - size, size, colors.color1, colors.color3);
+            drawDiamond(x, y + size, size, colors.color1, colors.color3);
+            drawDiamond(x - size, y, size, colors.color1, colors.color3);
+            drawDiamond(x + size, y, size, colors.color1, colors.color3);
+            drawDiamond(x, y - size / 2, size / 2, colors.color2, colors.color3);
+            drawDiamond(x + size / 2, y, size / 2, colors.color2, colors.color3);
+            drawDiamond(x, y + size / 2, size / 2, colors.color2, colors.color3);
+            drawDiamond(x - size / 2, y, size / 2, colors.color2, colors.color3);
+        }
+
+        // Function to draw a connected pattern of diamonds (leaf pattern)
+        function drawConnectedPattern(x, y, size) {
+            const halfSize = size / 2;
+
+            // Draw main diamond (leaf pattern)
+            drawDiamond(x, y, size, colors.color2, colors.color3);
+
+            // Draw connecting diamonds to center
+            ctx.beginPath();
+            ctx.moveTo(x, y - halfSize); // Top
+            ctx.lineTo(x, y - size); // Connect to center
+            ctx.moveTo(x, y + halfSize); // Bottom
+            ctx.lineTo(x, y + size); // Connect to center
+            ctx.moveTo(x - halfSize, y); // Left
+            ctx.lineTo(x - size, y); // Connect to center
+            ctx.moveTo(x + halfSize, y); // Right
+            ctx.lineTo(x + size, y); // Connect to center
+            ctx.strokeStyle = colors.color3;
+            ctx.stroke();
+
+            // Draw surrounding diamonds
+            const directions = [
+                { dx: 0, dy: -size },
+                { dx: size, dy: 0 },
+                { dx: 0, dy: size },
+                { dx: -size, dy: 0 }
+            ];
+
+            directions.forEach(dir => {
+                drawDiamond(x + dir.dx, y + dir.dy, size, colors.color1, colors.color3);
+            });
+
+            // Draw inner diamonds
+            directions.forEach(dir => {
+                drawDiamond(x + dir.dx / 2, y + dir.dy / 2, halfSize, colors.color2, colors.color3);
+            });
+        }
+
+        // Function to draw the entire embroidery pattern
+        function drawPattern() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const size = 40;
+            const offset = size * 2;
+
+            // Draw complex center pattern
+            drawComplexCenter(centerX, centerY, size);
+
+            // Draw connected patterns (leaves)
+            drawConnectedPattern(centerX, centerY - offset, size);
+            drawConnectedPattern(centerX, centerY + offset, size);
+            drawConnectedPattern(centerX - offset, centerY, size);
+            drawConnectedPattern(centerX + offset, centerY, size);
+        }
+
+        drawPattern();
+    </script>
+</body>
+</html>

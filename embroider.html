@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Embroidery Design with Clapping Hands Animation</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+            background-color:#bcada8;
+            margin-top: 0%;
+        }
+        .links {
+            margin-top: 20px;
+        }
+        .link {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .link:hover {
+            background-color: #eee;
+        }
+        .background {
+            background-color: #dee0ec; /* Light gray background */
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="embroideryCanvas" width="600" height="700"></canvas>
+
+    <div style="background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px;">
+        <p>This captivating design draws inspiration from the joyful <span style="color: #922217; font-weight: bold;">weaving hands</span> of a young Ethiopian girl. The ensemble features a light gray t-shirt paired with trousers, embodying subtle elegance and simplicity. Adorning the attire are intricate diamond patterns, each telling a unique story:</p>
+        <ul>
+            <li>A delicate diamond on the <span style="color: #c47240; font-style: italic;">shoulder</span> adds a touch of charm and grace.</li>
+            <li>A similar diamond on the <span style="color: #c47240; font-style: italic;">back</span> subtly enhances the design, creating a cohesive look.</li>
+            <li>Small diamond accents on the <span style="color: #c47240; font-style: italic;">legs</span> bring an element of unity to the entire outfit.</li>
+        </ul>
+        
+        <div style="margin-top: 20px;">
+            <a href="https://github.com/your-github-username" style="display: inline-block; margin-right: 10px; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; color: #333; transition: background-color 0.3s;" class="link">GitHub</a>
+            <a href="https://www.linkedin.com/in/your-linkedin-username" style="display: inline-block; margin-right: 10px; padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; color: #333; transition: background-color 0.3s;" class="link">LinkedIn</a>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('embroideryCanvas');
+        const ctx = canvas.getContext('2d');
+         //name............Aderaw Molla
+         //Id..............BDU1200811
+         //Date............Wednesday, July 17, 2024
+         //Description.....This design is inspired by the clapping hands of a young girl in Ethiopia. The t-shirt and trousers are made of light gray and brown fabric. The design includes a small diamond shape on the shoulder, a small diamond shape on the back, and a small diamond shape on the legs. The clapping hands are represented by a connected pattern of diamonds. The background color is light gray.
+
+        // Define colors used in the design
+        const colors = {
+            color1: '#922217', // Red
+            color2: '#c47240', // Orange
+            color3: '#000002',  // Black
+            tShirtColor: '#dee0ec', // Light gray for t-shirt
+            trouserColor: '#dee0ec', // Light brown for trousers
+            skinColor: '#cb8e62' // Skin color
+        };
+
+        // Function to draw a diamond shape
+        function drawDiamond(x, y, size, fillColor, strokeColor) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - size / 2);
+            ctx.lineTo(x + size / 2, y);
+            ctx.lineTo(x, y + size / 2);
+            ctx.lineTo(x - size / 2, y);
+            ctx.closePath();
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.strokeStyle = strokeColor;
+            ctx.stroke();
+        }
+
+        // Function to draw a connected pattern of diamonds
+        function drawConnectedPattern(x, y, size) {
+            const halfSize = size / 2;
+
+            // Draw main diamond
+            drawDiamond(x, y, size, colors.color2, colors.color3);
+
+            // Draw surrounding diamonds
+            const directions = [
+                { dx: 0, dy: -size },
+                { dx: size, dy: 0 },
+                { dx: 0, dy: size },
+                { dx: -size, dy: 0 }
+            ];
+
+            directions.forEach(dir => {
+                drawDiamond(x + dir.dx, y + dir.dy, size, colors.color1, colors.color3);
+            });
+
+            // Draw inner diamonds
+            directions.forEach(dir => {
+                drawDiamond(x + dir.dx / 2, y + dir.dy / 2, halfSize, colors.color2, colors.color3);
+            });
+        }
+
+        // Function to draw a larger and more realistic person with clothes
+        function drawPerson() {
+            // Draw person's body outline
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+
+            // Draw head outline
+            ctx.beginPath();
+            ctx.arc(300, 200, 60, 0, Math.PI * 2); // Head
+            ctx.stroke();
+
+            // Draw neck
+            ctx.beginPath();
+            ctx.moveTo(300, 240);
+            ctx.lineTo(300, 300);
+            ctx.stroke();
+
+            // Draw body outline
+            ctx.rect(240, 300, 120, 180); // Body
+            ctx.stroke();
+
+            // Draw arms outline
+            ctx.beginPath();
+            ctx.moveTo(240, 320);
+            ctx.lineTo(180, 400); // Left arm
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(360, 320);
+            ctx.lineTo(420, 400); // Right arm
+            ctx.stroke();
+
+            // Draw hands outline
+            ctx.fillRect(160, 380, 40, 32); // Left hand
+            ctx.strokeRect(160, 380, 40, 32); // Left hand outline
+            ctx.fillRect(400, 380, 40, 32); // Right hand
+            ctx.strokeRect(400, 380, 40, 32); // Right hand outline
+
+            // Draw legs outline
+            ctx.fillStyle = colors.trouserColor;
+            ctx.fillRect(260, 480, 80, 120); // Trousers
+            ctx.strokeRect(260, 480, 80, 120); // Trousers outline
+
+            // Draw feet outline
+            ctx.fillRect(280, 600, 20, 24); // Left foot
+            ctx.strokeRect(280, 600, 20, 24); // Left foot outline
+            ctx.fillRect(320, 600, 20, 24); // Right foot
+            ctx.strokeRect(320, 600, 20, 24); // Right foot outline
+
+            // Draw t-shirt (filled)
+            ctx.fillStyle = colors.tShirtColor;
+            ctx.fillRect(240, 300, 120, 180); // Body
+
+            // Overlay the embroidery pattern on the t-shirt
+            drawPatternOnTShirt(240, 300, 120, 180);
+
+            // Draw leaf pattern on the trousers
+            drawLeafPattern(300, 540);
+
+            // Draw facial features with blinking eyes
+            drawFace(300, 200);
+        }
+
+        // Function to draw embroidery pattern on t-shirt
+        function drawPatternOnTShirt(x, y, width, height) {
+            const patternSize = 12; // Adjust pattern size as needed
+            const patternOffsetX = 10;
+            const patternOffsetY = 8;
+
+            // Draw center pattern
+            drawConnectedPattern(x + width / 2 - patternOffsetX, y + height / 2 - patternOffsetY, patternSize);
+
+            // Draw surrounding patterns
+            const offset = patternSize * 2;
+
+            // Top pattern
+            drawConnectedPattern(x + width / 2 - patternOffsetX, y + height / 2 - offset - patternOffsetY, patternSize);
+
+            // Bottom pattern
+            drawConnectedPattern(x + width / 2 - patternOffsetX, y + height / 2 + offset - patternOffsetY, patternSize);
+
+            // Left pattern
+            drawConnectedPattern(x + width / 2 - offset - patternOffsetX, y + height / 2 - patternOffsetY, patternSize);
+
+            // Right pattern
+            drawConnectedPattern(x + width / 2 + offset - patternOffsetX, y + height / 2 - patternOffsetY, patternSize);
+        }
+
+        // Function to draw leaf pattern on trousers
+        function drawLeafPattern(x, y) {
+            const leafSize = 16;
+
+            // Draw main leaf
+            drawConnectedPattern(x, y, leafSize);
+
+            // Draw smaller leaf in the center of the trousers
+            drawConnectedPattern(x, y - leafSize * 2, leafSize / 2);
+        }
+
+        // Function to draw facial features
+        function drawFace(x, y) {
+            // Draw eyes with blinking effect
+            const blinkInterval = 1000; // Blink interval in milliseconds
+            const currentTimestamp = new Date().getTime();
+            const blinkPhase = Math.floor(currentTimestamp / blinkInterval) % 2 === 0;
+
+            // Eyes positions
+            const leftEyeX = x - 20;
+            const rightEyeX = x + 20;
+            const eyeY = y - 10;
+            const eyeRadius = 5;
+
+            // Draw left eye
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            if (blinkPhase) {
+                // Closed eye
+                ctx.moveTo(leftEyeX - eyeRadius, eyeY);
+                ctx.arc(leftEyeX, eyeY, eyeRadius, 0, Math.PI * 2); // Left eye
+            } else {
+                // Open eye
+                ctx.arc(leftEyeX, eyeY, eyeRadius, 0, Math.PI * 2); // Left eye
+            }
+            ctx.fill();
+
+            // Draw right eye
+            ctx.beginPath();
+            if (blinkPhase) {
+                // Closed eye
+                ctx.moveTo(rightEyeX - eyeRadius, eyeY);
+                ctx.arc(rightEyeX, eyeY, eyeRadius, 0, Math.PI * 2); // Right eye
+            } else {
+                // Open eye
+                ctx.arc(rightEyeX, eyeY, eyeRadius, 0, Math.PI * 2); // Right eye
+            }
+            ctx.fill();
+
+            // Draw nose
+            ctx.beginPath();
+            ctx.moveTo(x, y + 10);
+            ctx.lineTo(x - 5, y);
+            ctx.lineTo(x + 5, y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw ears
+            ctx.beginPath();
+            ctx.ellipse(x - 50, y, 10, 15, 0, 0, Math.PI * 2); // Left ear
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(x + 50, y, 10, 15, 0, 0, Math.PI * 2); // Right ear
+            ctx.fill();
+        }
+
+        // Function to animate clapping hands
+        function animateClap() {
+            const clapInterval = 3000; // Interval between claps (milliseconds)
+            const handWidth = 40;
+            const handHeight = 32;
+            const clapDuration = 500; // Duration of each clap motion (milliseconds)
+
+            // Start the animation
+            setInterval(() => {
+                // Animate left hand to clap
+                animateHand(160, 380, -1);
+
+                // Animate right hand to clap
+                animateHand(400, 380, 1);
+
+            }, clapInterval);
+
+            function animateHand(startX, startY, direction) {
+                const targetX = startX + direction * 50; // Move 50 pixels in direction
+
+                let currentX = startX;
+
+                // Animate the hand moving towards the target position
+                const moveInterval = setInterval(() => {
+                    ctx.clearRect(currentX - 2, startY - 2, handWidth + 4, handHeight + 4);
+                    drawHand(currentX, startY);
+                    currentX += direction * 2;
+
+                    // Check if the hand reaches the target position
+                    if ((direction === 1 && currentX >= targetX) || (direction === -1 && currentX <= targetX)) {
+                        clearInterval(moveInterval);
+
+                        // Draw hand in clapped position
+                        drawHand(targetX, startY);
+
+                        // Wait for a short moment
+                        setTimeout(() => {
+                            // Animate the hand moving back to original position
+                            const moveBackInterval = setInterval(() => {
+                                ctx.clearRect(currentX - 2, startY - 2, handWidth + 4, handHeight + 4);
+                                drawHand(currentX, startY);
+                                currentX -= direction * 2;
+
+                                // Check if the hand reaches the original position
+                                if ((direction === 1 && currentX <= startX) || (direction === -1 && currentX >= startX)) {
+                                    clearInterval(moveBackInterval);
+
+                                    // Draw hand in original position
+                                    drawHand(startX, startY);
+                                }
+                            }, 10);
+                        }, clapDuration);
+                    }
+                }, 10);
+            }
+
+            // Function to draw a hand
+            function drawHand(x, y) {
+                ctx.fillStyle = colors.skinColor; // Change to skin color
+                ctx.fillRect(x, y, handWidth, handHeight); // Draw hand
+                ctx.strokeRect(x, y, handWidth, handHeight); // Draw hand outline
+            }
+        }
+
+        // Draw the person with embroidery and start the clapping animation
+        drawPerson();
+         //animateClap(); 
+
+    </script>
+
+</body>
+</html>

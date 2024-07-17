@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopian Embroidery Pattern</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="embroideryCanvas" width="800" height="800"></canvas>
+    <script>
+        const canvas = document.getElementById('embroideryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Function to draw a square
+        function drawSquare(x, y, size, fillColor, strokeColor) {
+            ctx.fillStyle = fillColor;
+            ctx.fillRect(x, y, size, size);
+            ctx.strokeStyle = strokeColor;
+            ctx.strokeRect(x, y, size, size);
+        }
+
+        // Function to draw a diamond shape
+        function drawDiamond(x, y, size, fillColor, strokeColor) {
+            ctx.beginPath();
+            ctx.moveTo(x, y - size); // Top
+            ctx.lineTo(x + size, y); // Right
+            ctx.lineTo(x, y + size); // Bottom
+            ctx.lineTo(x - size, y); // Left
+            ctx.closePath();
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.strokeStyle = strokeColor;
+            ctx.stroke();
+        }
+
+        // Function to draw a central intricate pattern
+        function drawCentralPattern(x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x - size, y);
+            ctx.lineTo(x, y - size);
+            ctx.lineTo(x + size, y);
+            ctx.lineTo(x, y + size);
+            ctx.closePath();
+            ctx.strokeStyle = '#FFA500'; // Orange
+            ctx.stroke();
+        }
+
+        // Example to draw one part of the pattern
+        function drawPattern() {
+            // Center position
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Colors
+            const red = '#B22222';
+            const green = '#228B22';
+            const yellow = '#FFD700';
+            const black = '#000000';
+
+            // Size
+            const size = 40;
+
+            // Draw the central diamond
+            drawDiamond(centerX, centerY, size, yellow, black);
+
+            // Draw surrounding squares
+            drawSquare(centerX - 2.5 * size, centerY - 2.5 * size, size, red, black);
+            drawSquare(centerX + 1.5 * size, centerY - 2.5 * size, size, green, black);
+            drawSquare(centerX - 2.5 * size, centerY + 1.5 * size, size, green, black);
+            drawSquare(centerX + 1.5 * size, centerY + 1.5 * size, size, red, black);
+
+            // Draw the central intricate pattern
+            drawCentralPattern(centerX, centerY, size / 2);
+        }
+
+        // Call the function to draw the pattern
+        drawPattern();
+    </script>
+</body>
+</html>
